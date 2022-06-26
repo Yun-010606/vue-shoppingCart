@@ -3,21 +3,62 @@
   <div class="my-footer">
     <!-- 全选 -->
     <div class="custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input" id="footerCheck" />
+      <input type="checkbox" class="custom-control-input" id="footerCheck" 
+      v-model="isAll"
+      />
       <label class="custom-control-label" for="footerCheck">全选</label>
     </div>
     <!-- 合计 -->
     <div>
       <span>合计:</span>
-      <span class="price">¥ 0</span>
+      <span class="price">¥ {{allPrice}}</span>
     </div>
     <!-- 按钮 -->
-    <button type="button" class="footer-btn btn btn-primary">结算 ( 0 )</button>
+    <button type="button" class="footer-btn btn btn-primary">结算 ( {{allCount}} )</button>
   </div>
 </template>
 
 <script>
-export default {}
+// 1. 传递goodsList--->Myfooter
+// 2. 全选框v-model->isAll
+// 3. isAll的get和set方法
+export default {
+  props: {
+    goodList: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: {
+    isAll: {
+      get () {
+        return this.goodList.every((item) => item.goods_state)
+      },
+      set (newVal) {
+        this.goodList.forEach((item) => (item.goods_state = newVal))
+      }
+    },
+    // 总件数
+    allCount () {
+      return this.goodList.reduce((pre, curr) => {
+        if (curr.goods_state) {
+          return pre + curr.goods_count
+        } else {
+          return pre
+        }
+      }, 0)
+    },
+    allPrice () {
+      return this.goodList.reduce((pre, curr) => {
+        if (curr.goods_state) {
+          return pre + curr.goods_price * curr.goods_count
+        } else {
+          return pre
+        }
+      }, 0)
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

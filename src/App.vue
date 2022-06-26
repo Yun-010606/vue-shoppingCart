@@ -4,7 +4,7 @@
     <MyGoods v-for="item in goodList" :key="item.goods_id"
     :goods="item"
     ></MyGoods>
-    <MyFooter></MyFooter>
+    <MyFooter :goodList="goodList"></MyFooter>
   </div>
 </template>
 
@@ -43,5 +43,8 @@ export default {
 <style scoped>
 .app {
   padding: 50px 0;
+  max-height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
 }
 </style>
