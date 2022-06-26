@@ -1,24 +1,9 @@
 <template>
-  <div class="my-header" :style="{background, color}">{{title}}</div>
+  <div class="my-header"></div>
 </template>
 
 <script>
 export default {
-  // props可以是一个数组也可以是个对象
-  // 对象：{props:属性名：value}
-  // value 可以是个类型 也可以是个对象
-  // value是对象的话 {默认值default:'', 数据类型type:类型, 是否必须要required：true/false}
-  props: {
-    title: String,
-    background: {
-      type: String,
-      default: 'skyblue'
-    },
-    color: {
-      type: String,
-      required: true
-    }
-  }
 }
 </script>
 
